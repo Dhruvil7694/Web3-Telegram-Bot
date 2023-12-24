@@ -70,3 +70,78 @@ Certainly! If you want to use Ngrok to expose your local development server to t
    Ngrok will display details about each request, and you should see requests coming from Moralis.
 
 Please note that Ngrok URLs are temporary and may change every time you restart Ngrok. Consider using a tool like [ngrok-notify](https://github.com/dstotijn/ngrok-notify) to receive notifications when your Ngrok URL changes.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Getting the chat ID for a Telegram bot involves several steps, and it's important to note that Telegram might change its features or interfaces over time. As of my last knowledge update in January 2022, here's a step-by-step process to obtain the chat ID using the method you described:
+
+**Step 1: Create a Telegram Bot**
+
+1. Open the Telegram app and search for the "BotFather" bot.
+2. Start a chat with the BotFather and use the `/newbot` command to create a new bot.
+3. Follow the instructions to set a name and username for your bot. Once created, BotFather will provide you with a token for your bot.
+
+**Step 2: Send a Message to the Bot**
+
+1. Start a chat with your newly created bot on Telegram.
+2. Send a message to the bot (e.g., "/start").
+
+**Step 3: Open a New Tab and Visit the Telegram Bot API**
+
+1. Open a new tab in your web browser.
+
+2. Go to the following URL, replacing `your_bot_token` with the actual token you received from the BotFather:
+   ```
+   https://api.telegram.org/bot<your_bot_token>/getUpdates
+   ```
+
+   For example:
+   ```
+   https://api.telegram.org/bot123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11/getUpdates
+   ```
+
+**Step 4: Stop the Local Server**
+
+If you're running a local server (e.g., for your Telegram bot), stop the server temporarily.
+
+**Step 5: Refresh the Browser Tab**
+
+1. After stopping the local server, refresh the browser tab where you opened the Telegram Bot API URL.
+
+2. Look for a JSON response. The information you need is within the "message" object. Find the "chat" object, and note the "id" value. This "id" is the chat ID.
+
+   Example JSON response:
+   ```json
+   {
+      "ok": true,
+      "result": [
+         {
+            "update_id": 123456789,
+            "message": {
+               "message_id": 1,
+               "from": {
+                  "id": 123456789,
+                  "is_bot": false,
+                  "first_name": "John",
+                  "last_name": "Doe",
+                  "username": "johndoe",
+                  "language_code": "en"
+               },
+               "chat": {
+                  "id": 987654321,  // This is the chat ID
+                  "first_name": "John",
+                  "last_name": "Doe",
+                  "username": "johndoe",
+                  "type": "private"
+               },
+               "date": 1634024533,
+               "text": "/start"
+            }
+         }
+      ]
+   }
+   ```
+
+**Step 6: Note the Chat ID**
+
+Take note of the "id" value within the "chat" object. This is the chat ID you can use in your Telegram bot application.
+
+Please keep in mind that the Telegram Bot API may have changed since my last update, and you should refer to the [official Telegram Bot API documentation](https://core.telegram.org/bots/api#getting-updates) for the most accurate and up-to-date information.
